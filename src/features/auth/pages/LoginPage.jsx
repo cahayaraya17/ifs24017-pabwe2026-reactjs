@@ -20,6 +20,7 @@ export default function LoginPage() {
       <div>
         <label className="block text-sm font-semibold text-slate-700">Email</label>
         <input
+          id="login-email-input"
           type="email"
           required
           value={email}
@@ -31,6 +32,7 @@ export default function LoginPage() {
       <div>
         <label className="block text-sm font-semibold text-slate-700">Kata Sandi</label>
         <input
+          id="login-password-input"
           type="password"
           required
           value={password}
@@ -40,6 +42,7 @@ export default function LoginPage() {
         />
       </div>
       <button
+        id="login-submit-button"
         type="submit"
         disabled={isAuthLogin}
         className="w-full rounded-xl bg-blue-600 py-3 text-sm font-semibold text-white shadow-md hover:bg-blue-700 disabled:bg-blue-300 transition-colors"
