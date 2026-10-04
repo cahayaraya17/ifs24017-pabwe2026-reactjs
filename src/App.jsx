@@ -22,6 +22,7 @@ export default function App() {
       {/* Jalur Utama Terproteksi */}
       <Route path="/" element={<LostFoundLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="lost-founds" element={<HomePage />} />
         <Route path="lost-founds/:id" element={<DetailPage />} />
         <Route path="users" element={<UsersPage />} />
         <Route path="profile" element={<ProfilePage />} />
