@@ -20,32 +20,40 @@ export default function UsersPage() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-slate-800">Daftar Pengguna</h1>
-        <p className="text-slate-500 text-sm">Seluruh anggota terdaftar dalam sistem Delcom Lost & Founds</p>
+        <p className="text-slate-600 text-sm">Seluruh anggota terdaftar dalam sistem Delcom Lost &amp; Founds</p>
       </div>
 
       {userList.length === 0 ? (
-        <p className="text-slate-500 text-sm py-4">Tidak ada data pengguna atau sedang memuat...</p>
+        <p className="text-slate-600 text-sm py-4">Tidak ada data pengguna atau sedang memuat...</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {userList.map((user) => (
-            <div
+            <li
               key={user.id}
               className="flex items-center space-x-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
             >
               {user.photo ? (
-                <img src={user.photo} alt={user.name} className="h-12 w-12 rounded-full object-cover" />
+                <img
+                  src={user.photo}
+                  alt=""
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                  decoding="async"
+                  className="h-12 w-12 rounded-full object-cover"
+                />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold">
+                <div aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold">
                   <IconUser size={24} />
                 </div>
               )}
               <div className="overflow-hidden">
-                <h3 className="truncate font-semibold text-slate-800">{user.name}</h3>
-                <p className="truncate text-xs text-slate-500">{user.email}</p>
+                <h2 className="truncate font-semibold text-slate-800">{user.name}</h2>
+                <p className="truncate text-xs text-slate-600">{user.email}</p>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

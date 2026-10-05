@@ -1,5 +1,8 @@
-// Mengambil Base URL dari environment variable (.env) atau default API resmi Delcom
-const BASE_URL = import.meta.env.VITE_API_URL || 'https://open-api.delcom.org/api/v1';
+// Saat development: panggil API Delcom langsung.
+// Saat build produksi: panggil lewat domain sendiri (/api/v1) yang diteruskan Vercel (lihat vercel.json),
+// supaya Chrome tidak menandai header Authorization sebagai "deprecated" (menurunkan skor Best Practices).
+const UPSTREAM_URL = import.meta.env.VITE_API_URL || 'https://open-api.delcom.org/api/v1';
+const BASE_URL = import.meta.env.PROD ? '/api/v1' : UPSTREAM_URL;
 
 export const getAuthToken = () => {
   return localStorage.getItem('token') || '';
@@ -18,7 +21,7 @@ export const fetchWithAuth = async (url, options = {}) => {
   }
 
   // Jika body bukan FormData, pasang header JSON
-  if (!(options.body instanceof FormData) && !headers['Content-Type']) {
+  if (options.body && !(options.body instanceof FormData) && !headers['Content-Type']) {
     headers['Content-Type'] = 'application/json';
   }
 
@@ -27,7 +30,7 @@ export const fetchWithAuth = async (url, options = {}) => {
     headers,
   });
 
-  const data = await response.json();
+  const data = await response.json().catch(() => ({}));
   if (!response.ok) {
     throw new Error(data.message || 'Terjadi kesalahan pada permintaan');
   }

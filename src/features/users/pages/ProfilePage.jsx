@@ -7,6 +7,10 @@ import {
   asyncUpdatePassword,
 } from '../states/action';
 import useInput from '../../../hooks/useInput';
+import { NO_COVER } from '../../../helpers/toolsHelper';
+
+const inputClass =
+  'mt-1 w-full rounded-xl border border-slate-300 p-2.5 text-sm focus:border-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600';
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -54,7 +58,7 @@ export default function ProfilePage() {
     <div className="max-w-2xl space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-800">Profil Saya</h1>
-        <p className="text-slate-500 text-sm">Kelola informasi pribadi dan keamanan akun Anda</p>
+        <p className="text-slate-600 text-sm">Kelola informasi pribadi dan keamanan akun Anda</p>
       </div>
 
       {/* Foto Profil */}
@@ -62,16 +66,24 @@ export default function ProfilePage() {
         <h2 className="text-base font-bold text-slate-800 mb-4">Foto Profil</h2>
         <div className="flex items-center space-x-6">
           <img
-            src={profile?.photo || 'https://via.placeholder.com/150'}
-            alt="Avatar"
+            src={profile?.photo || NO_COVER}
+            alt="Foto profil"
+            width="80"
+            height="80"
+            decoding="async"
             className="h-20 w-20 rounded-full object-cover border border-slate-200"
           />
           <form onSubmit={handleUploadPhoto} className="flex flex-col space-y-2">
+            <label htmlFor="profile-photo-input" className="text-xs font-semibold text-slate-700">
+              Pilih foto baru
+            </label>
             <input
+              id="profile-photo-input"
+              name="photo"
               type="file"
               accept="image/*"
               onChange={(e) => setAvatarFile(e.target.files[0])}
-              className="text-xs text-slate-500 file:mr-3 file:rounded-lg file:border-0 file:bg-blue-50 file:py-2 file:px-3 file:text-xs file:font-semibold file:text-blue-600 hover:file:bg-blue-100"
+              className="text-xs text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-blue-50 file:py-2 file:px-3 file:text-xs file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
             />
             <button
               type="submit"
@@ -89,21 +101,31 @@ export default function ProfilePage() {
         <h2 className="text-base font-bold text-slate-800 mb-4">Informasi Akun</h2>
         <form onSubmit={handleUpdateProfile} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700">Nama Lengkap</label>
+            <label htmlFor="profile-name-input" className="block text-xs font-semibold text-slate-700">
+              Nama Lengkap
+            </label>
             <input
+              id="profile-name-input"
+              name="name"
               type="text"
+              autoComplete="name"
               value={name}
               onChange={onNameChange}
-              className="mt-1 w-full rounded-xl border border-slate-300 p-2.5 text-sm focus:border-blue-600 focus:outline-none"
+              className={inputClass}
             />
           </div>
           <div>
-            <label className="block text-xs font-semibold text-slate-700">Alamat Email</label>
+            <label htmlFor="profile-email-input" className="block text-xs font-semibold text-slate-700">
+              Alamat Email
+            </label>
             <input
+              id="profile-email-input"
+              name="email"
               type="email"
+              autoComplete="email"
               disabled
               value={profile?.email || ''}
-              className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-100 p-2.5 text-sm text-slate-500"
+              className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-100 p-2.5 text-sm text-slate-600"
             />
           </div>
           <button
@@ -121,23 +143,33 @@ export default function ProfilePage() {
         <h2 className="text-base font-bold text-slate-800 mb-4">Keamanan Kata Sandi</h2>
         <form onSubmit={handleUpdatePassword} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700">Kata Sandi Lama</label>
+            <label htmlFor="profile-old-password-input" className="block text-xs font-semibold text-slate-700">
+              Kata Sandi Lama
+            </label>
             <input
+              id="profile-old-password-input"
+              name="old_password"
               type="password"
+              autoComplete="current-password"
               required
               value={oldPassword}
               onChange={onOldPasswordChange}
-              className="mt-1 w-full rounded-xl border border-slate-300 p-2.5 text-sm focus:border-blue-600 focus:outline-none"
+              className={inputClass}
             />
           </div>
           <div>
-            <label className="block text-xs font-semibold text-slate-700">Kata Sandi Baru</label>
+            <label htmlFor="profile-new-password-input" className="block text-xs font-semibold text-slate-700">
+              Kata Sandi Baru
+            </label>
             <input
+              id="profile-new-password-input"
+              name="new_password"
               type="password"
+              autoComplete="new-password"
               required
               value={newPassword}
               onChange={onNewPasswordChange}
-              className="mt-1 w-full rounded-xl border border-slate-300 p-2.5 text-sm focus:border-blue-600 focus:outline-none"
+              className={inputClass}
             />
           </div>
           <button

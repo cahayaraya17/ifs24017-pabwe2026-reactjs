@@ -31,24 +31,44 @@ export default function ChangeCoverModal({ isOpen, onClose, id }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl p-6 shadow-xl">
-        <h2 className="text-lg font-bold text-slate-800 mb-4">Unggah / Ganti Cover Barang</h2>
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cover-modal-title"
+        className="w-full max-w-md bg-white rounded-2xl p-6 shadow-xl"
+      >
+        <h2 id="cover-modal-title" className="text-lg font-bold text-slate-800 mb-4">
+          Unggah / Ganti Cover Barang
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {preview && (
-            <img src={preview} alt="Pratinjau" className="h-44 w-full rounded-xl object-cover" />
+            <img
+              src={preview}
+              alt="Pratinjau cover"
+              width="400"
+              height="176"
+              className="h-44 w-full rounded-xl object-cover"
+            />
           )}
-          <input
-            type="file"
-            accept="image/*"
-            required
-            onChange={handleFileChange}
-            className="w-full text-xs text-slate-500 file:mr-3 file:rounded-lg file:border-0 file:bg-blue-50 file:py-2 file:px-3 file:text-xs file:font-semibold file:text-blue-600 hover:file:bg-blue-100"
-          />
+          <div>
+            <label htmlFor="cover-file" className="block text-xs font-semibold text-slate-700 mb-1">
+              Pilih gambar cover
+            </label>
+            <input
+              id="cover-file"
+              name="cover"
+              type="file"
+              accept="image/*"
+              required
+              onChange={handleFileChange}
+              className="w-full text-xs text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-blue-50 file:py-2 file:px-3 file:text-xs file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
+            />
+          </div>
           <div className="flex justify-end space-x-2 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+              className="px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 rounded-xl"
             >
               Batal
             </button>
