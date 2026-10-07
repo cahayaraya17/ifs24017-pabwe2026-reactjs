@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [email, onEmailChange] = useInput('');
   const [password, onPasswordChange] = useInput('');
   const dispatch = useDispatch();
-  const { isAuthLogin } = useSelector((state) => state.auth);
+  const { isLoading } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,10 +55,10 @@ export default function LoginPage() {
       <button
         id="login-submit-button"
         type="submit"
-        disabled={isAuthLogin}
+        disabled={isLoading}
         className="w-full rounded-xl bg-blue-600 py-3 text-sm font-semibold text-white shadow-md hover:bg-blue-700 disabled:bg-blue-300 transition-colors"
       >
-        {isAuthLogin ? 'Memverifikasi...' : 'Masuk Sekarang'}
+        {isLoading ? 'Memverifikasi...' : 'Masuk Sekarang'}
       </button>
       <p className="text-center text-sm text-slate-600 pt-2">
         Belum memiliki akun?{' '}

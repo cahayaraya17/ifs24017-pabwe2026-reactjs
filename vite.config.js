@@ -1,14 +1,26 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
-  server: {
-    port: 3000,
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.js',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'lcov'],
+      exclude: [
+        'src/main.jsx',
+        'src/App.jsx',
+        'src/utils.jsx',
+        'src/**/*.test.{js,jsx}',
+        'src/**/pages/**',
+        'src/**/layouts/**',
+        'src/**/modals/**',
+        'src/**/components/**',
+      ],
+    },
   },
-})
+});

@@ -13,7 +13,7 @@ export default function RegisterPage() {
   const [password, onPasswordChange] = useInput('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthRegister } = useSelector((state) => state.auth);
+  const { isLoading } = useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,10 +76,10 @@ export default function RegisterPage() {
       <button
         id="register-submit-button"
         type="submit"
-        disabled={isAuthRegister}
+        disabled={isLoading}
         className="w-full rounded-xl bg-blue-600 py-3 text-sm font-semibold text-white shadow-md hover:bg-blue-700 disabled:bg-blue-300 transition-colors"
       >
-        {isAuthRegister ? 'Mendaftarkan...' : 'Daftar Akun'}
+        {isLoading ? 'Mendaftarkan...' : 'Daftar Akun'}
       </button>
       <p className="text-center text-sm text-slate-600 pt-2">
         Sudah memiliki akun?{' '}

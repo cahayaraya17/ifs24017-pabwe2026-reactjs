@@ -1,7 +1,14 @@
 import { fetchWithAuth } from '../../../helpers/apiHelper';
 
 export const getLostFoundsApi = async (queryParams = {}) => {
-  return await fetchWithAuth('/lost-founds', {}, queryParams);
+  const params = new URLSearchParams();
+  Object.entries(queryParams || {}).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      params.append(key, value);
+    }
+  });
+  const query = params.toString();
+  return await fetchWithAuth(query ? `/lost-founds?${query}` : '/lost-founds');
 };
 
 export const getDetailLostFoundApi = async (id) => {
